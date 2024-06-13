@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,6 +21,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      
+      - run: npm ci
+      - run: npm run build
 
       - name: Deploy storybook
         working-directory: ./packages/docs
